@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Auth from '../Oauth/Auth'
 
 const Signup = () => {
-
+    const navigator = useNavigate()
     const [formdata,setFormdata] = useState({})
 
     const changeHandler = (e)=>{
@@ -35,6 +36,7 @@ const Signup = () => {
         }
         try {
             await axios.post("/api/auth/signup",formdata).then(()=>{
+                navigator("/sign-in")
                 return toast.success("Signup Successful")
             }).catch((err)=>toast.error(err.response.data.message))
         } catch (error) {
@@ -51,6 +53,7 @@ const Signup = () => {
             <input type="text" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={changeHandler} />
             <input type="text" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={changeHandler} />
             <button type="submit" className='border bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>SignUP</button>
+            <Auth/>
         </form>
         <div className='flex gap-2 mt-5 justify-center'>
             <p>Have an account</p>

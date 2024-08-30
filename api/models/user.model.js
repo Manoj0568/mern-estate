@@ -17,6 +17,10 @@ const userSchema = new schema({
         type:String,
         required:true,
     },
+    avatar:{
+        type:String,
+        default:"https://i.pravatar.cc/300"
+    }
 },{timestamps:true})
 
 export const User = mongoose.model("User",userSchema)
